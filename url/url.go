@@ -11,6 +11,10 @@ type URL struct {
 	Path   string
 }
 
+func (u *URL) Port() string {
+	return ""
+}
+
 func Parse(rawurl string) (*URL, error) {
 	i := strings.Index(rawurl, "://")
 	if i < 0 {

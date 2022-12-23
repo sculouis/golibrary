@@ -24,3 +24,15 @@ func TestParse(t *testing.T) {
 	}
 
 }
+
+func testPort(t *testing.T, in, wantPort string) {
+	u := &URL{Host: in}
+	if got := u.Port(); got != wantPort {
+		t.Errorf("for host %q; got %q; want %q", in, got, wantPort)
+	}
+}
+
+func TestURLPortWithEmptyPort(t *testing.T) { testPort(t, "foo.com:", "") }
+func TestURLPortWithoutPort(t *testing.T)   { testPort(t, "foo.com", "") }
+func TestURLPortIPWithPort(t *testing.T)    { testPort(t, "1.2.3.4:90", "90") }
+func TestURLPortIPWithoutPort(t *testing.T) { testPort(t, "1.2.3.4", "") }
